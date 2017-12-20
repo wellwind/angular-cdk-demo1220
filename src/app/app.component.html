@@ -1,1 +1,53 @@
-<button mat-raised-button>Test</button>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<mat-nav-list>
+  <a mat-list-item *ngFor="let user of onlineUsers$ | async">
+    <img matListAvatar [src]="user.avatar">
+    <p matLine>{{user.name}}</p>
+    <p matLine>{{ user.message }}</p>
+    <button mat-icon-button cdkOverlayOrigin #origin (click)="chat(origin, user)">
+      <mat-icon>chat</mat-icon>
+    </button>
+    <button mat-icon-button cdkOverlayOrigin #origin (click)="chatDialog(origin, user)">
+      <mat-icon>desktop_windows</mat-icon>
+    </button>
+  </a>
+</mat-nav-list>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+<p>1</p>
