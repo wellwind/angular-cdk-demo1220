@@ -1,3 +1,4 @@
+import { A, Z } from '@angular/cdk/keycodes';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { Component, OnInit, ViewContainerRef, ViewChildren, QueryList, HostListener } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
@@ -25,9 +26,9 @@ export class AppComponent implements OnInit, AfterViewInit {
   @HostListener('keydown', ['$event'])
   keydown($event: KeyboardEvent) {
     // 監聽鍵盤事件並依照案件設定按鈕focus狀態
-    if ($event.code === 'KeyA') {
+    if ($event.keyCode === A) {
       this.focusKeyManager.setPreviousItemActive();
-    } else if ($event.code === 'KeyS') {
+    } else if ($event.keyCode === Z) {
       this.focusKeyManager.setNextItemActive();
     }
   }
