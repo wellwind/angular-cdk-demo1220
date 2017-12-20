@@ -49,5 +49,25 @@ export class AppComponent implements OnInit {
     return new PortalInjector(this.viewContainerRef.injector, customTokens);
   }
 
-  chatDialog(origin: MatButton, user: OnlineUser) {}
+  chatDialog(origin: MatButton, user: OnlineUser) {
+    const strategy = this.overlay
+      .position()
+      .global()
+      // .top('100px')
+      // .left('200px')
+      .centerHorizontally()
+      .centerVertically()
+      .width('500px')
+      .height('500px');
+
+    const config = new OverlayConfig({
+      hasBackdrop: true,
+      positionStrategy: strategy,
+      scrollStrategy: this.overlay.scrollStrategies.block() // 關掉捲軸
+    });
+    const overlayRef = this.overlay.create(config);
+
+    overlayRef.attach(new ComponentPortal(InfoCardComponent, this.viewContainerRef, this._createInjector(overlayRef, user.id)));
+    overlayRef.backdropClick().subscribe(() => overlayRef.detach());
+  }
 }
