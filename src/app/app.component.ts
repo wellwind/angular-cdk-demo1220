@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { FocusKeyManager } from '@angular/cdk/a11y';
+import { Component, OnInit, ViewContainerRef, ViewChildren, QueryList, HostListener } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { OnlineUser } from './online-user';
 import { OnlineUsersService } from './online-users.service';
@@ -7,19 +8,41 @@ import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
 import { ComponentPortal, PortalInjector } from '@angular/cdk/portal';
 import { InfoCardComponent, CHAT_USER_ID_TOKEN, CHAT_OVERLAY_REF } from './info-card/info-card.component';
 import { OverlayRef } from '@angular/cdk/overlay';
+import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
   onlineUsers$: Observable<OnlineUser[]>;
+
+  // 找出所有的MatButton
+  @ViewChildren(MatButton) buttons: QueryList<MatButton>;
+  focusKeyManager: FocusKeyManager<MatButton>;
+
+  @HostListener('keydown', ['$event'])
+  keydown($event: KeyboardEvent) {
+    // 監聽鍵盤事件並依照案件設定按鈕focus狀態
+    if ($event.code === 'KeyA') {
+      this.focusKeyManager.setPreviousItemActive();
+    } else if ($event.code === 'KeyS') {
+      this.focusKeyManager.setNextItemActive();
+    }
+  }
 
   constructor(private onlineUsersService: OnlineUsersService, private overlay: Overlay, private viewContainerRef: ViewContainerRef) {}
 
   ngOnInit() {
     this.onlineUsers$ = this.onlineUsersService.getOnlineUsers();
+  }
+
+  ngAfterViewInit() {
+    // 建立FocusKeyManager, withWrap的話, 會形成一個focus的範圍區段
+    this.focusKeyManager = new FocusKeyManager(this.buttons).withWrap();
+    // active到最後一個
+    this.focusKeyManager.setFirstItemActive();
   }
 
   chat(origin: MatButton, user: OnlineUser) {
