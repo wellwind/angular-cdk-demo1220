@@ -1,16 +1,22 @@
-<mat-card *ngIf="profile$ | async as profile">
+<mat-card *ngIf="profile$ | async as profile" cdkTrapFocus cdkTrapFocusAutoCapture="true">
   <mat-card-header>
-    <img mat-card-avatar [src]="profile.avatar"/>
+    <img mat-card-avatar [src]="profile.avatar" />
     <mat-card-title>{{ profile.name }}</mat-card-title>
     <mat-card-subtitle>{{ profile.message }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <mat-form-field class="input">
-      <textarea matInput placeholder="輸入聊天內容"></textarea>
+      <textarea matInput placeholder="輸入聊天內容1" cdkFocusInitial></textarea>
+    </mat-form-field>
+    <mat-form-field class="input">
+      <textarea matInput placeholder="輸入聊天內容2" cdkFocusRegionStart cdkFocusInitial></textarea>
+    </mat-form-field>
+    <mat-form-field class="input">
+      <textarea matInput placeholder="輸入聊天內容3" cdkFocusInitial></textarea>
     </mat-form-field>
   </mat-card-content>
   <mat-card-actions>
     <button mat-button>送出</button>
-    <button mat-button color="warn" (click)="close()">關閉</button>
+    <button mat-button color="warn" (click)="close()" cdkFocusRegionEnd>關閉</button>
   </mat-card-actions>
 </mat-card>

@@ -33,6 +33,8 @@ import {
   MatTooltipModule,
   MatStepperModule
 } from '@angular/material';
+import { A11yModule } from '@angular/cdk/a11y';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 @NgModule({
   exports: [
@@ -67,6 +69,8 @@ import {
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
+    OverlayModule,
+    A11yModule
   ]
 })
 export class SharedMaterialModule {}
